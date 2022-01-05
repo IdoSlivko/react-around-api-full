@@ -1,6 +1,19 @@
-# react-around-api-full
-The API of "Around the U.S." with authorization and registration handled by the back-end server.
+# Around The U.S. / Api-Full (in progress)
+A Single-Page Website  
+[Link to the project](https://www.idoslivko.students.nomoreparties.site)
 
-This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users. Please add to this readme:
-* a link to repository with the complete React application which uses this API;
-* a link to the website that hosts your API.
+---   
+
+> Overview
+* Self-training project, developed by _**[Practicum100 and Yandex Web Developer Program](https://practicum.yandex.com/)**_, executed by me.  
+* This "Around the U.S." API repository, is a fully functional single-page website features user authorization and user registration and handles picture-cards/users: the webpage allows a user to register, edit his/her avatar profile, add/remove pictures and add a "like"!
+
+---
+> Technologies and Tools
+* Advanced HTML & CSS
+* Advanced JavaScript
+* React
+* Node.js / Express
+* MongoDB
+* Postman
+* Google Cloud VM
