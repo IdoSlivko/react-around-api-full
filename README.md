@@ -1,5 +1,5 @@
-# Around The U.S. / Api-Full (in progress)
-A Single-Page Website  
+# Around The U.S. / Api-Full
+A Single-Page Website (in progress)  
 [Link to the project](https://www.idoslivko.students.nomoreparties.site)
 
 ---   
