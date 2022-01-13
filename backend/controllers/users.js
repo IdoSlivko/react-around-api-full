@@ -18,7 +18,7 @@ const createUser = (req, res, next) => {
       if (!user) {
         throw new Error();
       }
-      res.send({ owner: user })
+      res.send({ message: 'User created successfully' });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

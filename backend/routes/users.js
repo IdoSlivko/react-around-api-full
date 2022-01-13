@@ -11,13 +11,19 @@ usersRouter.get('/users/me', getUserById);
 
 usersRouter.patch('/users/me', celebrate({
   body: Joi.object().keys({
+    user: Joi.object().keys({
+      _id: Joi.string().hex().required()
+    }),
     name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30)
   })
 }), updateUserProfile);
 
 usersRouter.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
+    user: Joi.object().keys({
+      _id: Joi.string().hex().required()
+    }),
     avatar: Joi.string().required().custom(validateUrlError)
   })
 }), updateUserAvatar);

@@ -1,7 +1,6 @@
 const Card = require('../models/card');
 const BadRequestError = require('../middleware/errors/badRequestError');
 const NotFoundError  = require('../middleware/errors/notFoundError');
-const AuthorizationError = require('../middleware/errors/authorizationError');
 
 const getCards = (req, res, next) => {
   Card.find({})
@@ -42,7 +41,9 @@ const deleteCard = (req, res, next) => {
         throw new NotFoundError('Card not found');
       }
       if (!card.owner.equals(req.user._id)) {
-        throw new AuthorizationError('Authorization Required'); 
+        const err = new Error('Forbidden');
+        err.statusCode = 403;
+        throw err;
       }
       Card.deleteOne(card)
       .then(() => res.send({ data: card }))

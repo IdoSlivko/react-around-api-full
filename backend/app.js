@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const { celebrate, Joi } = require('celebrate');
-const { errors } = require('celebrate');
+const NotFoundError = require('./middleware/errors/notFoundError');
+const { errors, celebrate, Joi } = require('celebrate');
 var cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 require('dotenv').config();
@@ -17,7 +17,7 @@ const cards = require('./routes/cards');
 
 const invalidResource = (req, res, next) => {
   if (req.url !== '') {
-    res.status(404).send({ message: 'Requested resource not found' });
+    next(new NotFoundError('Requested resource not found'));
   }
   next();
 };
