@@ -53,7 +53,7 @@ const login = (req, res, next) => {
       about: user.about,
       avatar: user.avatar
     }
-    res.send({ token: token, owner });
+    res.send({ token: token, owner: owner });
   })
   .catch(err => next(err));
 };
