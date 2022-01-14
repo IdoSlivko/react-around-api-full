@@ -25,7 +25,7 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Bad request'));
-      } else if (err.name === "MongoServerError" && err.code === 11000) {
+      } else if (err.name === 'MongoServerError' && err.code === 11000) {
         next(new ConflictError('User already exists'));
       } else {
         next(err);
