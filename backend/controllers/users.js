@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const BadRequestError = require('../middleware/errors/badRequestError');
+const ConflictError = require('../middleware/errors/conflictError');
 
 const createUser = (req, res, next) => {
   const { email, password, name, about, avatar } = req.body;
@@ -15,6 +16,7 @@ const createUser = (req, res, next) => {
       avatar
     }))
     .then((user) => {
+      console.log('res', res);
       if (!user) {
         throw new Error();
       }
@@ -22,7 +24,9 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError());
+        next(new BadRequestError('Bad request'));
+      } else if (err.name === "MongoServerError" && err.code === 11000) {
+        next(new ConflictError('User already exists'));
       } else {
         next(err);
       }
@@ -42,7 +46,14 @@ const login = (req, res, next) => {
       { _id: user._id },
       NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       { expiresIn: '7d' });
-    res.send({ token: token, owner: user });
+    const owner = {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar
+    }
+    res.send({ token: token, owner });
   })
   .catch(err => next(err));
 };
@@ -91,7 +102,7 @@ const updateUserAvatar = (req, res, next) => {
   })
   .catch((err) => {
     if (err.name === 'ValidationError') {
-      next(new BadRequestError());
+      next(new BadRequestError('Bad request'));
     } else {
       next(err);
     }
